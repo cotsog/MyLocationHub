@@ -84,9 +84,9 @@
 				
 				<webinf dir="${web.dir}/WEB-INF" />
 				<lib dir="${lib.dir}" />
-				<zipfileset dir="${web.dir}/resources" prefix="resources" />				
-				<echo message="${target.dir}/MyLocationHub.war"/>
+				<zipfileset dir="${web.dir}/resources" prefix="resources" />			
 			</war>
+			<echo message="MyLocationHub.war generated"/>
 		</target>             	
               	
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects" depends="package" />

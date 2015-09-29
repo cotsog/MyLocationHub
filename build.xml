@@ -79,11 +79,12 @@
 	
 		<target name="package" depends="clean, build-project" 
 	                description="create a war file">
-			<war destfile="${target.dir}/helloproject.war" webxml="${web.dir}/WEB-INF/web.xml">
+			<war destfile="${target.dir}/MyLocationHub.war" webxml="${web.dir}/WEB-INF/web.xml">
 				
 				<webinf dir="${web.dir}/WEB-INF" />
 				<lib dir="${lib.dir}" />
-				<zipfileset dir="${web.dir}/resources" prefix="resources" />
+				<zipfileset dir="${web.dir}/resources" prefix="resources" />				
+				<echo message="${target.dir}/MyLocationHub.war"/>
 			</war>
 		</target>             	
               	

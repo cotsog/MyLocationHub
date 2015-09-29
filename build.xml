@@ -3,11 +3,18 @@
               Any modifications will be overwritten.
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="MyLocationHub">
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="MyLocationHub">
     <property environment="env"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.7"/>
     <property name="source" value="1.7"/>
+	<property name="web.dir" value="WebContent" />
+	<property name="web.classes.dir" location="${web.dir}/WEB-INF/classes" />
+	<property name="target.dir" location="target" />
+	<property name="target.temp.dir" location="target/temp" />
+	<property name="lib.dir" value="lib" />
+
     <path id="Apache Tomcat v8.0 [Apache Tomcat v8.0].libraryclasspath"/>
         <!--<pathelement location="C:/Program Files/Apache Software Foundation/Tomcat 8.0/lib/annotations-api.jar"/>
         <pathelement location="C:/Program Files/Apache Software Foundation/Tomcat 8.0/lib/catalina-ant.jar"/>
@@ -69,7 +76,16 @@
             <classpath refid="MyLocationHub.classpath"/>
         </javac>
     </target>             	
-           	
+	
+		<target name="package" depends="clean, build-project" 
+	                description="create a war file">
+			<war destfile="${target.dir}/helloproject.war" webxml="${web.dir}/WEB-INF/web.xml">
+				
+				<webinf dir="${web.dir}/WEB-INF" />
+				<lib dir="${lib.dir}" />
+				<zipfileset dir="${web.dir}/resources" prefix="resources" />
+			</war>
+		</target>             	
               	
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
 </project>

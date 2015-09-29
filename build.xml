@@ -15,7 +15,7 @@
  	 
  	--> 
  	<property environment="env" /> 
- 	<property name="TOMCAT_HOME" value="${env.CATALINA_HOME}" /> 
+ 	<!--<property name="TOMCAT_HOME" value="${env.CATALINA_HOME}" />--> 
  	<property name="debuglevel" value="source,lines,vars" /> 
  	<property name="target" value="1.7" /> 
  	<property name="source" value="1.7" /> 
@@ -25,21 +25,21 @@
  	<property name="project.classes.dir" value="build/classes" /> 
  	<property name="project.lib.dir" value="${project.web.dir}/WEB-INF/lib" /> 
  	<property name="project.war" value="${project.name}.war" /> 
- 	<property name="project.runtime.lib" value="${TOMCAT_HOME}/lib" /> 
- 	<property name="project.deploy.location" value="${TOMCAT_HOME}/webapps" /> 
+ 	<!--<property name="project.runtime.lib" value="${TOMCAT_HOME}/lib" /> 
+ 	<property name="project.deploy.location" value="${TOMCAT_HOME}/webapps" />--> 
 
  
  
  
- 	<path id="classpath.runtime"> 
+ 	<!--<path id="classpath.runtime"> 
  		<fileset dir="${project.runtime.lib}" includes="*.jar" /> 
- 	</path> 
+ 	</path> -->
  	<path id="classpath.lib"> 
  		<fileset dir="${project.lib.dir}" includes="*.jar" /> 
- 	</path> 
+ 	</path>
  	<path id="project.classpath"> 
  		<pathelement location="${project.classes.dir}" /> 
- 		<path refid="classpath.runtime" /> 
+ 		<!--<path refid="classpath.runtime" />--> 
  		<path refid="classpath.lib" /> 
  	</path> 
  	<target name="init"> 
@@ -73,7 +73,7 @@
  			</fileset> 
  		</war> 
  	</target> 
- 	<target depends="package" name="deploy" description="Copying ${project.war} to ${project.deploy.location}"> 
+ 	<!--<target depends="package" name="deploy" description="Copying ${project.war} to ${project.deploy.location}"> 
  		<copy file="${project.war}" todir="${project.deploy.location}" /> 
- 	</target>
+ 	</target>-->
 </project> 

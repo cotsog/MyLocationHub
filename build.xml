@@ -67,7 +67,7 @@
         <delete dir="build/classes"/>
     </target>
     <target depends="clean" name="cleanall"/>
-    <target depends="build-subprojects,build-project" name="build"/>
+    <target depends="build-subprojects,build-project" name="buildproject"/>
     <target name="build-subprojects"/>
     <target depends="init" name="build-project">
         <echo message="${ant.project.name}: ${ant.file}"/>
@@ -78,8 +78,9 @@
     	<echo message="build sucess"/>
     </target>             	
 	
-		<target name="package" depends="clean, build-project" 
+		<target name="build" depends="buildproject" 
 	                description="create a war file">
+			<echo message="MyLocationHub.war started"/>
 			<war destfile="${target.dir}/MyLocationHub.war" webxml="${web.dir}/WEB-INF/web.xml">
 				
 				<webinf dir="${web.dir}/WEB-INF" />
@@ -89,5 +90,5 @@
 			<echo message="MyLocationHub.war generated"/>
 		</target>             	
               	
-    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects" depends="package" />
+   <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
 </project>

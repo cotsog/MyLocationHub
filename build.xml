@@ -75,6 +75,7 @@
             <src path="src"/>
             <classpath refid="MyLocationHub.classpath"/>
         </javac>
+    	<echo message="build sucess"/>
     </target>             	
 	
 		<target name="package" depends="clean, build-project" 
@@ -88,5 +89,5 @@
 			</war>
 		</target>             	
               	
-    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects" depends="package" />
 </project>

@@ -1,2 +1,1 @@
 language: java
-script: ant /home/travis/build/AcssCognizon/MyLocationHub/build.xml

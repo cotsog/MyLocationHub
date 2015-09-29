@@ -1,0 +1,4 @@
+---
+applications:
+- name: MyLocationHub
+  path: build/AcssCognizon/MyLocationHub/MyLocationHub.war

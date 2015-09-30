@@ -218,7 +218,7 @@ Ext.onReady(function () {
 																															//alert(catPoint);
 																															
 																															Ext.Ajax.request({ // 5
-																															url : '/MyLocationHub/VHubService',
+																															url : '/VHubService',
 																															scope : this,
 																															params : {
 																															verizonPhoneNumber:"Cafe"
@@ -536,7 +536,7 @@ Ext.onReady(function () {
 																		//alert(catPoint);
 																		
 																		Ext.Ajax.request({ // 5
-																		url : '/MyLocationHub/VHubService',
+																		url : '/VHubService',
 																		scope : this,
 																		params : {
 																		verizonPhoneNumber:catPoint

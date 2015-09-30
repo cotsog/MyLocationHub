@@ -250,7 +250,8 @@ Ext.onReady(function () {
 																	click: function() {
 																		
 																		Ext.Ajax.request({ // 5
-																		url : '/MyLocationHub/VHubService',
+																		//url : '/MyLocationHub/VHubService',
+																		url : '/VHubService',
 																		scope : this,
 																		params : {
 																		verizonPhoneNumber:'7299988899'

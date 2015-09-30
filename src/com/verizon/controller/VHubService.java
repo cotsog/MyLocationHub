@@ -209,6 +209,99 @@ public class VHubService extends HttpServlet {
 			result.setCat("Cafe");			
 			data.add(result);
 			}
+			if("All".equalsIgnoreCase(userName) || "Shopping".equalsIgnoreCase(userName))
+			{
+			result =  new Result();
+			result.setName("Beadazzled");
+			result.setAdress("Beadazzled,1507 Connecticut Ave NW,Washington, DC 20036");
+			result.setRating("3.8");
+			result.setUrl("wwe.gyhfhfgh");
+			result.setMsc("Strong");
+			result.setLat("38.91064");
+			result.setLon("-77.043718");
+			result.setCat("Shopping");
+			data.add(result);
+			
+			result =  new Result();
+			result.setName("Dupont Circle FRESHFARM Marke");
+			result.setAdress("Dupont Circle FRESHFARM Market,1500 20th St NW,Washington, DC 20036");
+			result.setRating("4.5");
+			result.setUrl("wwe.gyhfhfgh");
+			result.setMsc("Very Strong");
+			result.setLat("38.910646");
+			result.setLon("-77.044654");
+			result.setCat("Shopping");
+			data.add(result);
+			
+			result =  new Result();
+			result.setName("Loft");
+			result.setAdress("Loft,1611 Connecticut Ave NW #4A,Washington, DC 20009");
+			result.setRating("4.0");
+			result.setUrl("wwe.gyhfhfgh");
+			result.setMsc("Strong");
+			result.setLat("38.911652");
+			result.setLon("-77.044235");
+			result.setCat("Shopping");
+			data.add(result);
+			
+			result =  new Result();
+			result.setName("ShoppingCart");
+			result.setAdress("1630 Connecticut Ave NW,Washington, DC 20009");
+			result.setRating("4.0");
+			result.setUrl("wwe.gyhfhfgh");
+			result.setMsc("Strong");
+			result.setLat("38.9120493");
+			result.setLon("-77.0452262");
+			result.setCat("Shopping");			
+			data.add(result);
+			}
+			
+			if("towers".equalsIgnoreCase(userName))
+			{
+			result =  new Result();
+			result.setName("Capital Teas");
+			result.setAdress("Capital Teas, Dupont Circle,1627 Connecticut Ave NW,Washington, DC 20009");
+			result.setRating("4.0");
+			result.setUrl("wwe.gyhfhfgh");
+			result.setMsc("Weak");
+			result.setLat("38.912012");
+			result.setLon("-77.044461");
+			result.setCat("Cafe");			
+			data.add(result);
+			
+			result =  new Result();
+			result.setName("Starbucks");
+			result.setAdress("Starbucks,1700 Connecticut Ave NW,Washington, DC 20009");
+			result.setRating("4.7");
+			result.setUrl("wwe.gyhfhfgh");
+			result.setMsc("Strong");
+			result.setLat("38.912767");
+			result.setLon("-77.045576");
+			result.setCat("Cafe");			
+			data.add(result);
+			
+			result =  new Result();
+			result.setName("Teaism Dupont Circle");
+			result.setAdress("Teaism Dupont Circle,2009 R St NW,Washington, DC 20009");
+			result.setRating("3.9");
+			result.setUrl("wwe.gyhfhfgh");
+			result.setMsc("Very Strong");
+			result.setLat("38.912772");
+			result.setLon("-77.045816");
+			result.setCat("Cafe");			
+			data.add(result);
+			
+			result =  new Result();
+			result.setName("Kramerbooks & Afterwords Cafe");
+			result.setAdress("Kramerbooks & Afterwords Cafe,1517 Connecticut Ave NW,Washington, DC 20036");
+			result.setRating("3.1");
+			result.setUrl("wwe.gyhfhfgh");
+			result.setMsc("Very Strong");
+			result.setLat("38.91079");
+			result.setLon("-77.043699");
+			result.setCat("Cafe");			
+			data.add(result);
+			}
 			
 		}catch(Throwable e){
 			

@@ -30,6 +30,7 @@ Ext.onReady(function () {
 				allowBlank	:	false
 		    });
 
+	//var rating  = "<img src='extjs/resources/vHub.png' alt='Good'>";
 	
 	var orgin = Ext.create('Ext.data.Store', {
     fields: ['position', 'name'],
@@ -55,8 +56,8 @@ Ext.onReady(function () {
     ]
 	});
 	
-	var category = Ext.create('Ext.data.Store', {
-    fields: ['position', 'name'],
+	var categoryStore = Ext.create('Ext.data.Store', {
+    fields: ['value', 'name'],
     data : [
         {"value":"All", "name":"All"},
         {"value":"Restaurant", "name":"Restaurant"},
@@ -67,10 +68,17 @@ Ext.onReady(function () {
 	
 	var directionsService = null;
 	var directionsDisplay = null;
+	var directionsService1 = null;
+	var directionsDisplay1= null;
 	var cogmap = null;
-	var infowindow = null;
+	var cogmap1 = null;
 	
-	var setaddress = function(address,marker)
+	var infowindow = null;
+	var markers = [];
+	var infowindow1 = null;
+	var markers1 = [];
+	
+	var setaddress = function(name,address,value,msc,marker)
 	{
 		return function()
 		{
@@ -79,12 +87,43 @@ Ext.onReady(function () {
 				infowindow.close();
 			}
     		infowindow = new google.maps.InfoWindow({
-			content: address
+			content: "<b>Name </b>	:"+name+"</br><b>Address</b>	:"+address+"</br><b>Rating:</b>"+value+"</br><b>Signal Strength:</b> "+msc+""
 			});
 			infowindow.open(cogmap, marker);
 		}
 	};
+	
+	var deleteMarkers = function()
+	{
+		for(i=0;i<markers.length;i++){
+			markers[i].setMap(null);
+		}
+		markers = [];
+	};
 
+	var setaddress1 = function(name,address,value,msc,marker)
+	{
+		return function()
+		{
+			
+			if (infowindow1) {
+				infowindow1.close();
+			}
+    		infowindow1 = new google.maps.InfoWindow({
+			content: "Signal Strength:</b> "+msc+""
+			});
+			infowindow1.open(cogmap1, marker);
+		}
+	};
+	
+	var deleteMarkers1 = function()
+	{
+		for(i=0;i<markers1.length;i++){
+			markers1[i].setMap(null);
+		}
+		markers1= [];
+	};
+	
     Ext.create('Ext.Viewport', {
         layout: 'fit',
         items: [{
@@ -93,15 +132,249 @@ Ext.onReady(function () {
 					activeItem: 2,
 					items: [{
 								mainItem: 1,
-								
+							
 								items: [{
-											title: 'MyHub Stats',
+											title: 'vCheck',
 											iconCls: 'x-icon-tickets',
 											tabTip: 'Tickets tabtip',
+											//hidden:true,
 											//border: false,
-											xtype: 'gridportlet',
-											margin: '10',
-											height: null
+											//xtype: 'gridportlet',
+											items:[
+											
+													{
+																			xtype:'container',
+																			layout: {
+																				type: 'vbox'
+																			},
+																			height: 800,
+																			padding:'10 10 10 10',
+																			
+																			items: [
+																						{
+																								xtype:'fieldset',
+																								
+																								height:50,
+																								width:'100%',
+																									padding:'10 10 10 10',
+																								
+																									
+																									items: [
+																										
+																										{
+																											xtype:'container',
+																											layout: {
+																												type: 'hbox'
+																											},
+																											//width: 300,
+																											//padding:'20 20 20 20',
+																											
+																											items: [
+																												{
+																												xtype:'combobox',
+																												fieldLabel: '<b>Orgin</b>',
+																												id:'orgin1',
+																												store: orgin,
+																												//queryMode: 'local',
+																												displayField: 'name',
+																												valueField: 'position'
+																												//renderTo: Ext.getBody()	
+																												},
+																												{
+																													xtype:'tbfill',
+																													width:10
+																												},
+																												{
+																												xtype:'combobox',
+																												fieldLabel: '<b>Destination</b>',
+																												id:'destination1',
+																												store: destination,
+																												//queryMode: 'local',
+																												displayField: 'name',
+																												valueField: 'position'
+																												//renderTo: Ext.getBody()	
+																												},
+																												{
+																													xtype:'tbfill',
+																													width:10
+																												},
+																												{
+																													xtype:'button',
+																													text: 'Check Network',
+																													width:100,
+																													handler:function() {
+																														
+																														
+																		
+																															var orginPoint = Ext.getCmp("orgin1").getValue();
+																															var destPoint =  Ext.getCmp("destination1").getValue();
+																															//var catPoint =  Ext.getCmp("category").getValue();
+																															
+																															if(orginPoint == ''|| destPoint == '' || orginPoint == null || destPoint == null){
+																																Ext.Msg.alert('VeriZonHub', 'Please select Orgin and Detaination');
+																																return;
+																															}
+																															
+																															//alert(catPoint);
+																															
+																															Ext.Ajax.request({ // 5
+																															url : '/MyLocationHub/VHubService',
+																															scope : this,
+																															params : {
+																															verizonPhoneNumber:"Cafe"
+																															//key:Ext.MessageBox.alert(recordsToInsertUpdate)
+																															},
+																															success:    function(result,request){
+																																	//alert(result.responseText)
+																																	var data = JSON.parse(result.responseText).data;
+																																	
+																																	if(orginPoint == 'Dupont Circle, Dupont Circle Northwest, Washington, DC 20036' && destPoint == 'American Geophysical Union, 2000 Florida Avenue Northwest, Washington, DC 20009')
+																																	{
+																																	//Ext.getCmp("rgrid").getStore().loadData(data)
+																																	}
+																																	else
+																																	{
+																																	Ext.Msg.alert('VeriZonHub', 'Data not Available');
+																																	return;		
+																																	}
+																																	 //var stepDisplay = new google.maps.InfoWindow;
+																																	 //var markerArray = [];
+																																	var request = {
+																																		origin : orginPoint ,//'chicago, il',
+																																		destination : destPoint ,//'st louis, mo',
+																																		travelMode : google.maps.TravelMode.DRIVING
+																																	};																			 																			
+																																	
+																																	//
+																																	deleteMarkers1();
+																																	
+																																	directionsService1.route(request, function(result, status) {
+																																		if (status == google.maps.DirectionsStatus.OK) {
+																																			directionsDisplay1.setDirections(result);
+																																			
+																																			for (i = 0; i < data.length; i++) {																							 
+																																				// var marker = new google.maps.Marker;
+																																				
+																																				var iconpng = 'extjs/resources/resturanticon.png';
+																																				if(data[i].cat == 'Shopping')
+																																					iconpng = 'extjs/resources/shoppingicon.png';
+																																				else if (data[i].cat == 'Cafe')
+																																					iconpng = 'extjs/resources/cafeicon.png';
+																																				
+																																				
+																																				 var marker = new google.maps.Marker({																					
+																																					
+																																					icon: iconpng,
+																																					animation:google.maps.Animation.BOUNCE
+																																				});
+																																				
+																																				marker.setMap(cogmap1);
+																																				var position = new google.maps.LatLng(data[i].lat,data[i].lon);
+																																				marker.setPosition(position);																							
+																																				
+																																				
+
+																																				 markers1.push(marker);
+																																				 
+																																				google.maps.event.addListener(marker, 'click', setaddress1(data[i].name,data[i].adress,data[i].rating,data[i].msc,marker));
+																																				
+																																			 }
+																																			
+																															
+																																		}
+																																	});
+																																}
+																															});
+																													}	
+																														
+																												},
+																												{
+																													xtype:'tbfill',
+																													width:10
+																												},
+																												{
+																													xtype:'button',
+																													text: 'Clear',
+																													width:100,
+																													handler:function() {
+																														Ext.getCmp("orgin1").setValue('');
+																														Ext.getCmp("destination1").setValue('');
+																														//Ext.getCmp("category").setValue('All');
+																														//Ext.getCmp("rgrid").getStore().removeAll();
+																														var myCenter=new google.maps.LatLng(51.508742,-0.120850);
+																															var marker = new google.maps.Marker({
+																															  position: myCenter
+																															 
+																															  });
+																															marker.setMap(cogmap1);
+																															cogmap1.setCenter(marker.getPosition());
+																													}	
+																														
+																												}
+																												
+																											]
+
+																										}
+																									]
+																								}	,
+																								{
+																									
+																								xtype:'fieldset',
+																								
+																								height:680,
+																								width:"100%",
+																									padding:'10 10 10 10',
+																								
+																									
+																									items: [
+																										
+																										{
+																											autoShow: true,
+																											layout: 'fit',
+																											closeAction: 'hide',
+																											
+																											height:700,
+																											border: false,
+																											x: 0,
+																											y: 0, 
+																											items: {
+																												xtype: 'gmappanel',
+																												//id:'gmappanel',
+																												//gmapType: 'map',
+																												zoomLevel: 14,
+																												center: {
+																													geoCodeAddr: '4 Yawkey Way, Boston, MA, 02215-3409, USA',
+																													marker: {title: 'Fenway Park'}
+																												},
+																								
+																												mapOptions : {
+																													mapTypeId: google.maps.MapTypeId.TERRAIN
+																												},
+
+																												listeners: {
+																														mapready: function(ux, gmap){
+																														//alert(99);
+																															 directionsService1 = new google.maps.DirectionsService();
+																																		 directionsDisplay1 = new google.maps.DirectionsRenderer();
+																																		//var start = 'chicago, il',//document.getElementById("start").value;
+																																		//var end = 'st louis, mo',//document.getElementById("end").value;
+																																		cogmap1 = gmap;
+																																		directionsDisplay1.setMap(cogmap1);
+																																	
+																																		
+																																		
+																														} 
+																													}
+																											}
+																										}
+																								
+																								]}
+
+																					]
+													}
+											],
+											margin: '10'
+											//height: null
 										}, {
 											xtype: 'portalpanel',
 											title: 'Verizon Hub',
@@ -109,7 +382,7 @@ Ext.onReady(function () {
 											border: false,
 											items: [{
 												flex: 1,
-												items: [rating,{
+												items: [{
 													xtype:'image',
 													src: 'extjs/resources/vHub.png',
 												    width: 1000,
@@ -195,7 +468,7 @@ Ext.onReady(function () {
 														items: [
 															{
 															xtype:'combobox',
-															fieldLabel: 'Orgin',
+															fieldLabel: '<b>Orgin</b>',
 															id:'orgin',
 															store: orgin,
 															//queryMode: 'local',
@@ -205,7 +478,7 @@ Ext.onReady(function () {
 															},
 															{
 															xtype:'combobox',
-															fieldLabel: 'Destination',
+															fieldLabel: '<b>Destination</b>',
 															id:'destination',
 															store: destination,
 															//queryMode: 'local',
@@ -215,17 +488,19 @@ Ext.onReady(function () {
 															},
 															{
 															xtype:'combobox',
-															fieldLabel: 'Category',
+															fieldLabel: '<b>Category</b>',
 															id:'category',
-															store: category,
+															store: categoryStore,
 															//queryMode: 'local',
 															displayField: 'name',
 															valueField: 'value',
+															value:'All'
+															/*,
 															listeners: {
 															change: function() {
 																Ext.Msg.alert('Chosen book', 'Buying ISBN: '+ this.getValue());
 																}
-															}
+															}*/
 
 															//renderTo: Ext.getBody()	
 															}
@@ -249,26 +524,43 @@ Ext.onReady(function () {
 															listeners: {
 																	click: function() {
 																		
+																		var orginPoint = Ext.getCmp("orgin").getValue();
+																		var destPoint =  Ext.getCmp("destination").getValue();
+																		var catPoint =  Ext.getCmp("category").getValue();
+																		
+																		if(orginPoint == ''|| destPoint == '' || orginPoint == null || destPoint == null){
+																			Ext.Msg.alert('VeriZonHub', 'Please select Orgin and Detaination');
+																			return;
+																		}
+																		
+																		//alert(catPoint);
+																		
 																		Ext.Ajax.request({ // 5
-																		//url : '/MyLocationHub/VHubService',
-																		url : '/VHubService',
+																		url : '/MyLocationHub/VHubService',
 																		scope : this,
 																		params : {
-																		verizonPhoneNumber:'7299988899'
+																		verizonPhoneNumber:catPoint
 																		//key:Ext.MessageBox.alert(recordsToInsertUpdate)
 																		},
 																		success:    function(result,request){
 																				//alert(result.responseText)
 																				var data = JSON.parse(result.responseText).data;
+																				
+																				if(orginPoint == 'Dupont Circle, Dupont Circle Northwest, Washington, DC 20036' && destPoint == 'American Geophysical Union, 2000 Florida Avenue Northwest, Washington, DC 20009')
 																				Ext.getCmp("rgrid").getStore().loadData(data);
+																			    else
+																				Ext.Msg.alert('VeriZonHub', 'Data not Available');	
 																				
 																				 //var stepDisplay = new google.maps.InfoWindow;
 																				 //var markerArray = [];
 																				var request = {
-																					origin : Ext.getCmp("orgin").getValue() ,//'chicago, il',
-																					destination : Ext.getCmp("destination").getValue() ,//'st louis, mo',
+																					origin : orginPoint ,//'chicago, il',
+																					destination : destPoint ,//'st louis, mo',
 																					travelMode : google.maps.TravelMode.DRIVING
 																				};																			 																			
+																				
+																				//
+																				deleteMarkers();
 																				
 																				directionsService.route(request, function(result, status) {
 																					if (status == google.maps.DirectionsStatus.OK) {
@@ -286,7 +578,8 @@ Ext.onReady(function () {
 																							
 																							 var marker = new google.maps.Marker({																					
 																								
-																								icon: iconpng
+																								icon: iconpng,
+																								animation:google.maps.Animation.DROP
 																							});
 																							
 																							marker.setMap(cogmap);
@@ -300,7 +593,9 @@ Ext.onReady(function () {
 																								infowindow.open(cogmap, marker);
 																									});	*/
 
-																							google.maps.event.addListener(marker, 'click', setaddress(data[i].adress,marker));
+																							 markers.push(marker);
+																							 
+																							google.maps.event.addListener(marker, 'click', setaddress(data[i].name,data[i].adress,data[i].rating,data[i].msc,marker));
 																							
 																						 }
 																						
@@ -323,6 +618,17 @@ Ext.onReady(function () {
 															text: 'Clear',
 															width:100,
 															handler:function() {
+																Ext.getCmp("orgin").setValue('');
+																Ext.getCmp("destination").setValue('');
+																Ext.getCmp("category").setValue('All');
+																Ext.getCmp("rgrid").getStore().removeAll();
+																var myCenter=new google.maps.LatLng(51.508742,-0.120850);
+																	var marker = new google.maps.Marker({
+																	  position: myCenter
+																	 
+																	  });
+																	marker.setMap(cogmap);
+																	cogmap.setCenter(marker.getPosition());
 																
 															}
 															
@@ -354,21 +660,42 @@ Ext.onReady(function () {
 													 {
 														 xtype:'grid',
 														 id:'rgrid',
-														 title: 'Top 5 Restaurants',
+														 title: 'Search Results',
 															store:Ext.create('Ext.data.Store', {
 															     fields:['name','adress','rating','url','msc','lat','lon','cat']
 															  }),
 															columns: [
-																{ text: 'Name',  dataIndex: 'name' },
-																{ text: 'Address', dataIndex: 'adress', flex: 1 },
+																{ tooltip:'Name',tooltipType:'title',header: 'Name',  dataIndex: 'name', renderer:function (value, metadata, record, rowIndex, colIndex, store){
+																	value = Ext.String.htmlEncode(value);
+																	metadata.tdAttr = 'data-qtip="' + value + '"';
+																	return value;
+																} },
+																{ tooltip:'Address',tooltipType:'title',header: 'Address', dataIndex: 'adress', flex: 1, renderer:function (value, metadata, record, rowIndex, colIndex, store){
+																	value = Ext.String.htmlEncode(value);
+																	metadata.tdAttr = 'data-qtip="' + value + '"';
+																	return value;
+																}
+																 },
 																{ text: 'Rating', dataIndex: 'rating'},
 																{ text: 'Category', dataIndex: 'cat'}
 															],
-															height: 200,
-															width: 430
+															height: 400,
+															width: 430,
+															listeners : {
+																itemclick: function(dv, record, item, index, e) {
+																	//alert('working');
+																	if (infowindow) {
+																		infowindow.close();
+																	}
+																	infowindow = new google.maps.InfoWindow({
+																	content: "<b>Name </b>	:"+record.data.name+"</br><b>Address</b>	:"+record.data.adress+"</br><b>Rating:</b>"+record.data.rating+"</br><b>Signal Strength:</b> "+record.data.msc+""
+																	});
+																	infowindow.open(cogmap, markers[index]);
+																}
+															}
 
+		
 													 },
-													 
 															{
 																xtype:'tbfill',
 																height:2
@@ -376,6 +703,7 @@ Ext.onReady(function () {
 													 {
 														 xtype:'grid',
 														 title: 'Top 5 Msc',
+														 hidden:true,
 															//store: Ext.data.StoreManager.lookup('simpsonsStore'),
 															columns: [
 																{ text: 'Name',  dataIndex: 'name' },
@@ -452,13 +780,14 @@ Ext.onReady(function () {
 										}
 								}
 							}]
-										}, {
+										}/*, {
 											title: 'Upgrade Eligiblity',
 											iconCls: 'x-icon-users',
 											tabTip: 'Users tabtip',
 											style: 'padding: 10px;',
+											hidden:true,
 											items : []
-										}]
+										}*/]
 						}]
 					}]
     });

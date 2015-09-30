@@ -221,7 +221,7 @@ Ext.onReady(function () {
 																															url : '/VHubService',
 																															scope : this,
 																															params : {
-																															verizonPhoneNumber:"Cafe"
+																															verizonPhoneNumber:"towers"
 																															//key:Ext.MessageBox.alert(recordsToInsertUpdate)
 																															},
 																															success:    function(result,request){
@@ -255,10 +255,10 @@ Ext.onReady(function () {
 																																			for (i = 0; i < data.length; i++) {																							 
 																																				// var marker = new google.maps.Marker;
 																																				
-																																				var iconpng = 'extjs/resources/strongtower.png';
+																																				var iconpng = 'extjs/resources/strongtower.jpeg';
 																																				if(data[i].msc == 'Weak')
-																																					iconpng = 'extjs/resources/weaktower.png';																																				
-																																				
+																																					iconpng = 'extjs/resources/weaktower.jpeg';	
+																																																																								
 																																				 var marker = new google.maps.Marker({																					
 																																					
 																																					icon: iconpng,

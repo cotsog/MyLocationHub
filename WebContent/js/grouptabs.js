@@ -255,12 +255,9 @@ Ext.onReady(function () {
 																																			for (i = 0; i < data.length; i++) {																							 
 																																				// var marker = new google.maps.Marker;
 																																				
-																																				var iconpng = 'extjs/resources/resturanticon.png';
-																																				if(data[i].msc == 'Strong')
-																																					iconpng = 'extjs/resources/shoppingicon.png';
-																																				else if (data[i].msc == 'Weak')
-																																					iconpng = 'extjs/resources/cafeicon.png';
-																																				
+																																				var iconpng = 'extjs/resources/strongtower.png';
+																																				if(data[i].msc == 'Weak')
+																																					iconpng = 'extjs/resources/weaktower.png';																																				
 																																				
 																																				 var marker = new google.maps.Marker({																					
 																																					

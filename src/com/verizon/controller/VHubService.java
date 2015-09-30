@@ -266,7 +266,7 @@ public class VHubService extends HttpServlet {
 			result.setMsc("Weak");
 			result.setLat("38.912012");
 			result.setLon("-77.044461");
-			result.setCat("Cafe");			
+			result.setCat("towers");			
 			data.add(result);
 			
 			result =  new Result();
@@ -277,7 +277,7 @@ public class VHubService extends HttpServlet {
 			result.setMsc("Strong");
 			result.setLat("38.912767");
 			result.setLon("-77.045576");
-			result.setCat("Cafe");			
+			result.setCat("towers");			
 			data.add(result);
 			
 			result =  new Result();
@@ -285,10 +285,10 @@ public class VHubService extends HttpServlet {
 			result.setAdress("Teaism Dupont Circle,2009 R St NW,Washington, DC 20009");
 			result.setRating("3.9");
 			result.setUrl("wwe.gyhfhfgh");
-			result.setMsc("Very Strong");
+			result.setMsc("Weak");
 			result.setLat("38.912772");
 			result.setLon("-77.045816");
-			result.setCat("Cafe");			
+			result.setCat("towers");			
 			data.add(result);
 			
 			result =  new Result();
@@ -296,10 +296,21 @@ public class VHubService extends HttpServlet {
 			result.setAdress("Kramerbooks & Afterwords Cafe,1517 Connecticut Ave NW,Washington, DC 20036");
 			result.setRating("3.1");
 			result.setUrl("wwe.gyhfhfgh");
-			result.setMsc("Very Strong");
+			result.setMsc("Strong");
 			result.setLat("38.91079");
 			result.setLon("-77.043699");
-			result.setCat("Cafe");			
+			result.setCat("towers");			
+			data.add(result);
+			
+			result =  new Result();
+			result.setName("ShoppingCart");
+			result.setAdress("1630 Connecticut Ave NW,Washington, DC 20009");
+			result.setRating("4.0");
+			result.setUrl("wwe.gyhfhfgh");
+			result.setMsc("Strong");
+			result.setLat("38.9120493");
+			result.setLon("-77.0452262");
+			result.setCat("towers");			
 			data.add(result);
 			}
 			

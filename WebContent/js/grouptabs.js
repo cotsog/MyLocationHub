@@ -330,7 +330,7 @@ Ext.onReady(function () {
 																											layout: 'fit',
 																											closeAction: 'hide',
 																											
-																											//height:700,
+																											height:700,
 																											border: false,
 																											x: 0,
 																											y: 0, 

@@ -255,9 +255,9 @@ Ext.onReady(function () {
 																																			for (i = 0; i < data.length; i++) {																							 
 																																				// var marker = new google.maps.Marker;
 																																				
-																																				var iconpng = 'extjs/resources/strongtower.jpeg';
+																																				var iconpng = 'extjs/resources/strongtower.jpg';
 																																				if(data[i].msc == 'Weak')
-																																					iconpng = 'extjs/resources/weaktower.jpeg';	
+																																					iconpng = 'extjs/resources/weaktower.jpg';	
 																																																																								
 																																				 var marker = new google.maps.Marker({																					
 																																					
